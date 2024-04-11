@@ -5,26 +5,36 @@ from tkinter import ttk
 window = Tk()
 window.geometry("420x420")
 
-Calories = Label(window, text="")
-Fat = Label(window, text="asdfasdf")
-Carbs = Label(window, text="")
-Sugar = Label(window, text="")
-Fiber = Label(window, text="")
-Protein = Label(window, text="")
-Salt = Label(window, text="")
 
-Calories.place(x=210, y=210)
-Fat.place(x=210, y=230)
-Carbs.place(x=210, y=250)
-Sugar.place(x=210, y=270)
-Fiber.place(x=210, y=290)
-Salt.place(x=210, y=310)
+navbar = ttk.Notebook(window)
+tab1 = Frame(window)
+tab2 = Frame(window)
 
-inputBox_food = ttk.Combobox(window, values= ["Egg", "Storfekjøtt", "Melk", "Kikerter", "Rundstykker med valmue, first price"])
-inputBox_food.place(x=1, y=2)
+navbar.add(tab1, text = "Matkaklulator")
+navbar.add(tab2, text = "kalorikalkulator")
 
-inputBox_amount = ttk.Combobox(window, values= ["Per 100 gram", "1 stykke"])
-inputBox_amount.place(x=1, y=50)
+navbar.pack()
+
+Calories = Label(tab1, text="")
+Fat = Label(tab1, text="asdfasdf")
+Carbs = Label(tab1, text="")
+Sugar = Label(tab1, text="")
+Fiber = Label(tab1, text="")
+Protein = Label(tab1, text="")
+Salt = Label(tab1, text="")
+
+Calories.place(x=10, y=150)
+Fat.place(x=10, y=170)
+Carbs.place(x=10, y=190)
+Sugar.place(x=10, y=210)
+Fiber.place(x=10, y=230)
+Salt.place(x=10, y=250)
+
+inputBox_food = ttk.Combobox(tab1, values= ["Egg", "Storfekjøtt", "Melk", "Kikerter", "Rundstykker med valmue, first price"])
+inputBox_food.pack()
+
+inputBox_amount = ttk.Combobox(tab1, values= ["Per 100 gram", "1 stykke"])
+inputBox_amount.pack()
 
 def check():
     if inputBox_food.get() == "Egg":
@@ -37,7 +47,7 @@ def check():
     
     if inputBox_food.get() == "Rundstykker med valmue, first price":
         
-        if inputBox_amount.get() == "Per 100 gram": 
+        if inputBox_amount.get() == "Per 100 gram":
             Calories.config(text="Kalorier: 274")
             Fat.config(text="Fett: 5,2 gram")
             Carbs.config(text="Karbohydrater: 46,2 gram")
@@ -56,7 +66,7 @@ def check():
             Salt.config(text="Salt: 0,5 gram")
 
 
-button = Button(window, text= "Text", command = check)  
-button.place(x=100, y=100)  
+button = Button(tab1, text= "Text", command = check)  
+button.pack()
 
 window.mainloop()
