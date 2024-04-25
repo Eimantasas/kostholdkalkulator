@@ -29,17 +29,17 @@ Protein = Label(tab1, text="")
 Salt = Label(tab1, text="")
 
 inputBox_food = ttk.Combobox(tab1, values= ["Egg", "Rundstykker med valmue, first price", "Rema saltede cashew"], font=("Arial", 25))
-inputBox_food.pack()
+inputBox_food.pack(pady=(25, 0))
 
 inputBox_amount = ttk.Combobox(tab1, values= ["Per 100 gram", "1 stykke eller porsjon"], font=("Arial", 25))
-inputBox_amount.pack()
+inputBox_amount.pack(pady=(25, 0))
 
-Calories.pack()
+Calories.pack(pady=(20, 0))
 Fat.pack()
 Carbs.pack()
 Sugar.pack()
 Fiber.pack()
-Salt.pack()
+Salt.pack(pady=(0, 20))
 
 def check():
     if inputBox_food.get() == "Egg":
