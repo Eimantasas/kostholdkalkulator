@@ -3,7 +3,8 @@ from tkinter import ttk
 
  
 window = Tk()
-window.geometry("600x500")
+window.geometry("500x700")
+window.resizable(False, False)
 
 
 navbar = ttk.Notebook(window)
@@ -13,10 +14,9 @@ tab3 = Frame(window)
 
 navbar.add(tab1, text = "Matkaklulator")
 navbar.add(tab2, text = "kalorikalkulator")
-navbar.add(tab3, text = "BmiKalkulator")
+navbar.add(tab3, text = "BMI kalkulator")
 
 navbar.pack()
-
 
 ###############Næringskalkulator###############
 
@@ -28,10 +28,10 @@ Fiber = Label(tab1, text="")
 Protein = Label(tab1, text="")
 Salt = Label(tab1, text="")
 
-inputBox_food = ttk.Combobox(tab1, values= ["Egg", "Rundstykker med valmue, first price", "Rema saltede cashew"])
+inputBox_food = ttk.Combobox(tab1, values= ["Egg", "Rundstykker med valmue, first price", "Rema saltede cashew"], font=("Arial", 25))
 inputBox_food.pack()
 
-inputBox_amount = ttk.Combobox(tab1, values= ["Per 100 gram", "1 porsjon eller pakke"])
+inputBox_amount = ttk.Combobox(tab1, values= ["Per 100 gram", "1 stykke eller porsjon"], font=("Arial", 25))
 inputBox_amount.pack()
 
 Calories.pack()
@@ -45,39 +45,36 @@ def check():
     if inputBox_food.get() == "Egg":
 
         if inputBox_amount.get() == "Per 100 gram": 
-            Calories.config(text="Kalorier: 155")
+            Calories.config(text="Kalorier: 155", font=("Arial", 25))
 
-        if inputBox_amount.get() == "1 porsjon eller pakke": 
-            Calories.config(text="Kalorier: 80")
+        if inputBox_amount.get() == "1 stykke": 
+            Calories.config(text="Kalorier: 80", font=("Arial", 25))
     
     if inputBox_food.get() == "Rundstykker med valmue, first price":
         
         if inputBox_amount.get() == "Per 100 gram":
-            Calories.config(text="Kalorier: 274")
-            Fat.config(text="Fett: 5,2 gram")
-            Carbs.config(text="Karbohydrater: 46,2 gram")
-            Sugar.config(text="Hvorav sukkerarter: 1,0 gram")
-            Fiber.config(text="Kostfiber: 2,6")
-            Protein.config(text="Proteiner: 9,1")
-            Salt.config(text="Salt: 0,9 gram")
+            Calories.config(text="Kalorier: 274", font=("Arial", 25))
+            Fat.config(text="Fett: 5,2 gram", font=("Arial", 25))
+            Carbs.config(text="Karbohydrater: 46,2 gram", font=("Arial", 25))
+            Sugar.config(text="Hvorav sukkerarter: 1,0 gram", font=("Arial", 25))
+            Fiber.config(text="Kostfiber: 2,6", font=("Arial", 25))
+            Protein.config(text="Proteiner: 9,1", font=("Arial", 25))
+            Salt.config(text="Salt: 0,9 gram", font=("Arial", 25))
         
-        if inputBox_amount.get() == "1 porsjon eller pakke": 
-            Calories.config(text="Kalorier: 164")
-            Fat.config(text="Fett: 3,2 gram")
-            Carbs.config(text="Karbohydrater: 27,7 gram")
-            Sugar.config(text="Hvorav sukkerarter: 0,6 gram")
-            Fiber.config(text="Kostfiber: 1,5")
-            Protein.config(text="Proteiner:5,5")
-            Salt.config(text="Salt: 0,5 gram")
+        if inputBox_amount.get() == "Per 100 gram": 
+            Calories.config(text="Kalorier: 164", font=("Arial", 25))
+            Fat.config(text="Fett: 3,2 gram", font=("Arial", 25))
+            Carbs.config(text="Karbohydrater: 27,7 gram", font=("Arial", 25))
+            Sugar.config(text="Hvorav sukkerarter: 0,6 gram", font=("Arial", 25))
+            Fiber.config(text="Kostfiber: 1,5", font=("Arial", 25))
+            Protein.config(text="Proteiner:5,5", font=("Arial", 25))
+            Salt.config(text="Salt: 0,5 gram", font=("Arial", 25))
 
 
 button = Button(tab1, text= "Text", command = check)  
 button.pack()
 
 ###############Kalorikalkulator###############
-
-from tkinter import *
-
 def submit():
     weightamount = entry.get()
     heightamount = entry2.get()
@@ -90,7 +87,7 @@ def submit():
         else:
             anbefaltkalorier = (66.47 + (13.75 * int(weightamount)) + (5.003 * int(heightamount)) - (6.755 * int(ageamount))) * multiplier
 
-        label2.config(text="Din anbefalt daglig kalori inntak: " + str("%.2f"%anbefaltkalorier))
+        label2.config(text="Din daglige tilnærmede anbefalte kalori inntak: \n" + str("%.2f"%anbefaltkalorier))
     else: anbefaltkalorier = 0
 
     delete()
@@ -120,47 +117,53 @@ def genderchoice():
         choice = "man"
     else:
         choice = "woman"
-    print(choice)
     return choice
 
 activitylist = ["Litt Aktiv (trener 1-3 ganger i uka)", "Ikke Aktiv", "Aktiv (trener 5-7 ganger i uka)"]
 genderlist = ["man", "woman"]
 
+
+#radiobutton variabler
 x = IntVar()
 x2 = IntVar()
 
+#tallvariabler
+proteinval = IntVar()
+fettval = IntVar()
+carbsval = IntVar()
+
 entry = Entry(tab2, #weight
-              font=("Arial", 50),
+              font=("Arial", 25),
               validate="key",
-              validatecommand=(tab2.register(validate_entry), "%S"))
+              validatecommand=(window.register(validate_entry), "%S"))
 
 entry2 = Entry(tab2, #Height
-              font=("Arial", 50),
+              font=("Arial", 25),
               validate="key",
-              validatecommand=(tab2.register(validate_entry), "%S"))
+              validatecommand=(window.register(validate_entry), "%S"))
 
 entry3 = Entry(tab2, #Age
-              font=("Arial", 50),
+              font=("Arial", 25),
               validate="key",
-              validatecommand=(tab2.register(validate_entry), "%S"))
+              validatecommand=(window.register(validate_entry), "%S"))
 
 anbefaltkalorier = submit()
 
 label = Label(tab2,
-              font=("Arial", 35),
+              font=("Arial", 25),
               text="Skriv inn vekten din (Kg)")
 
 heightlabel = Label(tab2,
-              font=("Arial", 35),
+              font=("Arial", 25),
               text="Skriv inn høyden din (cm)")
 
 agelabel = Label(tab2,
-              font=("Arial", 35),
+              font=("Arial", 25),
               text="Skriv inn alderen din (år)")
 
 label2 = Label(tab2,
-               font=("Arial", 35),
-               text="Din anbefalt daglig kalori inntak: " + str(anbefaltkalorier))
+               font=("Arial", 25),
+               text="Din anbefalt daglig kalori inntak: \n" + str(anbefaltkalorier))
 
 
 submit_button = Button(tab2, 
@@ -173,47 +176,49 @@ for index in range(len(genderlist)):
                               text=genderlist[index],
                               variable=x2,
                               value=index,
-                              command=genderchoice)
+                              command=genderchoice,
+                              font=("Arial", 20))
     radiobutton2.pack(pady=5)
 
-label.pack()
-entry.pack(pady=25)
+label.pack(pady=(20, 0))
+entry.pack(pady=(0, 25))
 
 for index in range(len(activitylist)):
     radiobutton = Radiobutton(tab2,
                               text=activitylist[index],
                               variable=x,
                               value=index,
-                              command=activity)
+                              command=activity,
+                              font=("Arial", 20))
     radiobutton.pack()
 
-heightlabel.pack()
+heightlabel.pack(pady=(25, 0))
 entry2.pack()
 
-agelabel.pack()
+agelabel.pack(pady=(20, 0))
 entry3.pack()
 
 submit_button.pack()
-label2.pack()
+label2.pack(pady=(20, 15))
 
 ###############Kalorikalkulator###############
 
 
-heightEntry = Entry(tab3)
-heightEntry.pack()
-heightLabel=Label(tab3, text="Høyde:")
-heightLabel.place(x=70,y=1)
+heightEntry = Entry(tab3, font=("Arial", 15))
+heightEntry.pack(pady=(20, 0))
+heightLabel=Label(tab3, text="Høyde (cm):", font=("Arial", 15))
+heightLabel.place(x=0,y=20)
 
-weightEntry = Entry(tab3)
-weightEntry.pack()
-weightLabel=Label(tab3, text="Kroppsvekt:")
-weightLabel.place(x=70,y=30)
+weightEntry = Entry(tab3, font=("Arial", 15))
+weightEntry.pack(pady=(20, 0))
+weightLabel=Label(tab3, text="Vekt (KG):", font=("Arial", 15))
+weightLabel.place(x=12,y=70)
 
-BMIerIkkeAltText=Label(tab3, text="Husk at hvis man har en god del muskler vil BMI ikke være like bra på å finne ut om du er overvekt eller ikke.")
-BMIerIkkeAltText.pack()
+BMIerIkkeAltText=Label(tab3, text="Husk at hvis man har en god del \n muskler vil BMI ikke være like bra \n på å finne ut om du er overvekt eller \n ikke.", font=("Arial", 20))
+BMIerIkkeAltText.pack(pady=(20, 0))
 
 BMItext = Label(tab3, text="")
-BMItext.pack()
+BMItext.pack(pady=(20, 0))
 
 harJegFedmetext = Label(tab3, text="")
 harJegFedmetext.pack()
@@ -223,7 +228,7 @@ def getHeightAndWeight() :
     weight=float(weightEntry.get())
     BMI = weight/((height/100)**2)
     shortBMI = ("%.2f"%BMI)
-    BMItext.config(text=shortBMI)
+    BMItext.config(text=shortBMI, font=("arial", 40))
     if (BMI < 18.5):
         harJegFedmetext.config(text='BMI under 18.5 fører ifølge FHI til økt risiko for helseproblemer.'+"\n"+'https://www.fhi.no/le/overvekt/kroppsmasseindeks-kmi-og-helse/')
 
